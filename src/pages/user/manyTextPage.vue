@@ -4,7 +4,7 @@
       class="column justify-center"
       :style="`transform: rotateY(${
         !isMenuOpen ? 0 : 180
-      }deg); cursor:pointer; margin-right:10px; `"
+      }deg); cursor:pointer; margin-right:10px;`"
       @click="isMenuOpen = !isMenuOpen"
     >
       <svg
@@ -16,7 +16,7 @@
         <path d="M20 44 0 24 20 4l2.8 2.85L5.65 24 22.8 41.15Z" />
       </svg>
     </div>
-    <div ref="menu" class="sc">
+    <div ref="menu" class="sc" :style="`opacity:${!isMenuOpen ? 0 : 1}`">
       <div
         class="text-right row justify-end no-wrap items-center content-center"
         v-for="item in menu"
@@ -37,7 +37,7 @@
   </div>
   <div
     class="column justify-center items-center content-center outter p"
-    :style="`transform: translate(${!isMenuOpen ? 0 : -1 * w}px); width:100%`"
+    :style="`transform: translate(${!isMenuOpen ? 0 : -1 * w}px); width:100%;`"
   >
     <div class="q-ma-au q-pr-md sc" style="width: 100%" v-html="html"></div>
   </div>
