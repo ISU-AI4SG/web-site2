@@ -1,9 +1,10 @@
 <template>
   <div class="menu" :class="{ menuOpen: isMenuOpen }">
     <div
+      class="column justify-center"
       :style="`transform: rotateY(${
         !isMenuOpen ? 0 : 180
-      }deg); cursor:pointer;`"
+      }deg); cursor:pointer; margin-right:10px`"
       @click="isMenuOpen = !isMenuOpen"
     >
       <svg
@@ -80,6 +81,7 @@ export default {
   max-height: 100%;
   right: 0px;
   transform: translate(80%, 0%);
+  padding-right: 10px;
 }
 .menuOpen {
   transform: translate(0%, 0%);
@@ -91,6 +93,7 @@ export default {
   transform: translate(-50%, 0%);
 }
 .menu > div > div {
+  cursor: pointer;
   width: 150px;
   padding: 5px;
   height: max-content;

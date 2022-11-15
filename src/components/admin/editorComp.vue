@@ -1,5 +1,5 @@
 <template>
-  <div ref="test">
+  <div ref="test" v-if="isLoadable">
     <QuillEditor
       ref="quill"
       theme="snow"
@@ -7,7 +7,6 @@
       :toolbar="toolbar"
       @update:content="updateEvent"
     >
-
     </QuillEditor>
   </div>
 
@@ -27,9 +26,7 @@ import { getText, upladImage, uploadText } from "@/services/service-fb";
 import { computed } from "@vue/runtime-core";
 
 import QuillToolBar from "@/Quill/QuillToolBar";
-import QuillModules from "@/Quill/QuillModules";
-
-QuillModules[1].options = (file) => upladImage(file);
+import { modules, setUploadPromise } from "@/Quill/QuillModules";
 
 export default {
   components: {
@@ -39,10 +36,11 @@ export default {
   data() {
     return {
       di: false,
+      isLoadable: false,
       route: computed(() => this.$route.path),
       upload: this.uploader,
       toolbar: QuillToolBar,
-      modules: QuillModules,
+      modules: modules,
       animations: [{ name: "Breath", value: "breath" }],
     };
   },
@@ -76,6 +74,8 @@ export default {
   },
 
   mounted() {
+    setUploadPromise(upladImage);
+    this.isLoadable = true;
     this.update();
   },
   watch: {

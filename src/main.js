@@ -8,4 +8,4 @@ const app = createApp(App);
 app.config.unwrapInjectedRef = true;
 app.use(Quasar, quasarUserOptions);
 app.use(router);
-app.mount("#app");
+app.mount("body");
