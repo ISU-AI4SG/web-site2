@@ -1,8 +1,23 @@
 <template>
-  <div class="column justify-center items-center content-center outter">
-    <div class="col-2 menu row wrap">
+  <div class="menu" :class="{ menuOpen: isMenuOpen }">
+    <div
+      :style="`transform: rotateY(${
+        !isMenuOpen ? 0 : 180
+      }deg); cursor:pointer;`"
+      @click="isMenuOpen = !isMenuOpen"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        height="48"
+        width="48"
+        fill="white"
+      >
+        <path d="M20 44 0 24 20 4l2.8 2.85L5.65 24 22.8 41.15Z" />
+      </svg>
+    </div>
+    <div ref="menu">
       <div
-        class="text-center"
+        class="text-right"
         v-for="item in menu"
         :key="item"
         @click="menuEvent(item.id)"
@@ -10,7 +25,12 @@
         <span>{{ item.name }}</span>
       </div>
     </div>
-    <div class="col-10 text-center q-ma-au sc" v-html="html"></div>
+  </div>
+  <div
+    class="column justify-center items-center content-center outter p"
+    :style="`transform: translate(${!isMenuOpen ? 0 : -1 * w}px)`"
+  >
+    <div class="q-ma-au q-pr-md sc" style="width: 100%" v-html="html"></div>
   </div>
 </template>
 
@@ -22,6 +42,8 @@ export default {
     return {
       menu: [],
       html: "",
+      isMenuOpen: false,
+      w: 0,
     };
   },
   methods: {
@@ -37,6 +59,9 @@ export default {
     },
   },
   mounted() {
+    setTimeout(() => {
+      this.w = this.$refs.menu.clientWidth;
+    }, 1000);
     this.getPages();
     this.menuEvent(this.inf.id);
   },
@@ -47,18 +72,31 @@ export default {
   height: 100%;
 }
 .menu {
+  position: fixed;
   overflow: hidden auto;
   justify-content: space-around;
+  display: flex;
+  flex-direction: row;
+  max-height: 100%;
+  right: 0px;
+  transform: translate(80%, 0%);
 }
-.menu > div {
+.menuOpen {
+  transform: translate(0%, 0%);
+}
+.p {
+  transform: translate(0px, 0px);
+}
+.pOpen {
+  transform: translate(-50%, 0%);
+}
+.menu > div > div {
   width: 150px;
   padding: 5px;
-  background-color: #030303;
   height: max-content;
   overflow: hidden;
 }
-.menu > div:hover {
-  background-color: #000;
+.menu > div > div:hover {
   color: blueviolet;
   width: 150px;
 }

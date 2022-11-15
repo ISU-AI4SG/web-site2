@@ -1,5 +1,5 @@
 <template>
-  <div class="sc" v-html="html"></div>
+  <div class="sc" style="width: 100%" v-html="html"></div>
 </template>
 <script>
 import { getText } from "@/services/service-u";
